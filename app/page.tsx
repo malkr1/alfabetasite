@@ -1,11 +1,13 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import PracticalGuides from './components/PracticalGuides'
 import SupplementInfo from './components/SupplementInfo'
 
 export default function Home() {
+  const [expandedSection, setExpandedSection] = useState<string | null>(null)
+  
   const categories = [
     {
       title: 'Протеин',
@@ -89,9 +91,7 @@ export default function Home() {
           Узнайте всё о спортивных добавках: состав, применение, эффективность
         </motion.p>
 
-        <SupplementInfo />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {categories.map((category, index) => (
             <motion.div
               key={category.title}
@@ -113,14 +113,54 @@ export default function Home() {
           ))}
         </div>
 
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-16"
-        >
-          <PracticalGuides />
-        </motion.div>
+        {/* Сворачиваемые разделы */}
+        <div className="space-y-6">
+          {/* Ключевая информация */}
+          <motion.div>
+            <button
+              onClick={() => setExpandedSection(expandedSection === 'info' ? null : 'info')}
+              className="w-full text-left px-6 py-4 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow"
+            >
+              <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+                Ключевая информация {expandedSection === 'info' ? '▼' : '▶'}
+              </h2>
+            </button>
+            {expandedSection === 'info' && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="mt-4"
+              >
+                <SupplementInfo />
+              </motion.div>
+            )}
+          </motion.div>
+
+          {/* Практические руководства */}
+          <motion.div>
+            <button
+              onClick={() => setExpandedSection(expandedSection === 'guides' ? null : 'guides')}
+              className="w-full text-left px-6 py-4 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow"
+            >
+              <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+                Практические руководства {expandedSection === 'guides' ? '▼' : '▶'}
+              </h2>
+            </button>
+            {expandedSection === 'guides' && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="mt-4"
+              >
+                <PracticalGuides />
+              </motion.div>
+            )}
+          </motion.div>
+        </div>
       </motion.div>
     </main>
   )
