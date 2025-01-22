@@ -1,12 +1,13 @@
 'use client'
 import React, { useState } from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import PracticalGuides from './components/PracticalGuides'
 import SupplementInfo from './components/SupplementInfo'
 
 export default function Home() {
-  const [expandedSection, setExpandedSection] = useState<string | null>(null)
+  const [expandedKey, setExpandedKey] = useState(false)
+  const [expandedGuide, setExpandedGuide] = useState(false)
   
   const categories = [
     {
@@ -126,60 +127,82 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Сворачиваемые разделы */}
-        <div className="space-y-6 mt-12">
-          {/* Ключевая информация */}
-          <motion.div>
-            <button
-              onClick={() => setExpandedSection(expandedSection === 'info' ? null : 'info')}
-              className="w-full text-left px-6 py-4 bg-gray-800/80 backdrop-blur-sm 
-                rounded-xl shadow-lg hover:shadow-xl transition-all duration-300
-                border border-transparent hover:border-blue-500/30"
-            >
-              <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r 
-                from-blue-400 to-purple-400 flex items-center">
-                Ключевая информация {expandedSection === 'info' ? '▼' : '▶'}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
+        >
+          <button
+            onClick={() => setExpandedKey(!expandedKey)}
+            className="w-full text-left p-4 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 
+              border border-gray-700/50 transition-all duration-300"
+          >
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-semibold text-blue-400">
+                Ключевая информация
               </h2>
-            </button>
-            {expandedSection === 'info' && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
+              <motion.span
+                animate={{ rotate: expandedKey ? 180 : 0 }}
                 transition={{ duration: 0.3 }}
-                className="mt-4"
+                className="text-gray-400"
               >
-                <SupplementInfo />
-              </motion.div>
-            )}
-          </motion.div>
+                ▼
+              </motion.span>
+            </div>
+          </button>
 
-          {/* Практические руководства */}
-          <motion.div>
-            <button
-              onClick={() => setExpandedSection(expandedSection === 'guides' ? null : 'guides')}
-              className="w-full text-left px-6 py-4 bg-gray-800/80 backdrop-blur-sm 
-                rounded-xl shadow-lg hover:shadow-xl transition-all duration-300
-                border border-transparent hover:border-purple-500/30"
-            >
-              <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r 
-                from-blue-400 to-purple-400 flex items-center">
-                Практические руководства {expandedSection === 'guides' ? '▼' : '▶'}
-              </h2>
-            </button>
-            {expandedSection === 'guides' && (
+          <AnimatePresence>
+            {expandedKey && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
+                animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.3 }}
-                className="mt-4"
+                className="overflow-hidden"
               >
-                <PracticalGuides />
+                <div className="p-4 space-y-4 text-gray-300">
+                  <SupplementInfo />
+                </div>
               </motion.div>
             )}
-          </motion.div>
-        </div>
+          </AnimatePresence>
+
+          <button
+            onClick={() => setExpandedGuide(!expandedGuide)}
+            className="w-full text-left p-4 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 
+              border border-gray-700/50 mt-4 transition-all duration-300"
+          >
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-semibold text-blue-400">
+                Практические руководства
+              </h2>
+              <motion.span
+                animate={{ rotate: expandedGuide ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
+                className="text-gray-400"
+              >
+                ▼
+              </motion.span>
+            </div>
+          </button>
+
+          <AnimatePresence>
+            {expandedGuide && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="overflow-hidden"
+              >
+                <div className="p-4 space-y-4 text-gray-300">
+                  <PracticalGuides />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </main>
   )
