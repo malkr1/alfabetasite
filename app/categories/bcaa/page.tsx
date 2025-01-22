@@ -27,6 +27,29 @@ export default function BcaaPage() {
     }
   ]
 
+  const benefits = [
+    {
+      title: 'Восстановление',
+      description: 'Ускоряет процессы восстановления после тренировок',
+      icon: '🔄'
+    },
+    {
+      title: 'Защита мышц',
+      description: 'Предотвращает катаболизм при интенсивных тренировках',
+      icon: '🛡️'
+    },
+    {
+      title: 'Энергия',
+      description: 'Может использоваться как источник энергии при тренировках',
+      icon: '⚡'
+    },
+    {
+      title: 'Выносливость',
+      description: 'Помогает увеличить продолжительность тренировок',
+      icon: '🏃'
+    }
+  ]
+
   return (
     <CategoryLayout title="BCAA">
       <div className="space-y-8">
@@ -36,15 +59,16 @@ export default function BcaaPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="bg-white/50 dark:bg-gray-700/50 rounded-xl p-6 shadow-lg"
+            className="bg-gray-900/50 rounded-xl p-6 shadow-lg border border-gray-700/50
+              hover:border-green-500/30 transition-all duration-300"
           >
             <div className="flex items-start">
               <span className="text-3xl mr-4">{section.icon}</span>
               <div>
-                <h2 className="text-xl font-semibold mb-2 text-gray-800 dark:text-gray-100">
+                <h2 className="text-xl font-semibold mb-2 text-gray-100">
                   {section.title}
                 </h2>
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-gray-300">
                   {section.content}
                 </p>
               </div>
@@ -52,6 +76,38 @@ export default function BcaaPage() {
           </motion.div>
         ))}
       </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        className="mt-12 bg-gray-900/50 rounded-xl p-6 shadow-lg border border-gray-700/50"
+      >
+        <h2 className="text-2xl font-bold mb-6 text-gray-100">
+          Дополнительные преимущества
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {benefits.map((benefit, index) => (
+            <motion.div
+              key={benefit.title}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+              className="flex items-start space-x-4"
+            >
+              <span className="text-2xl">{benefit.icon}</span>
+              <div>
+                <h3 className="font-semibold text-gray-100 mb-1">
+                  {benefit.title}
+                </h3>
+                <p className="text-gray-300">
+                  {benefit.description}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
     </CategoryLayout>
   )
 } 

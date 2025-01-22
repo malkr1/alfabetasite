@@ -48,28 +48,33 @@ export default function ProteinCalculator() {
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-2xl p-8 shadow-lg"
+      className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg"
     >
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">Калькулятор протеина</h2>
+      <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100">Калькулятор протеина</h2>
       
       <div className="space-y-6">
         <div>
-          <label className="block text-gray-700 mb-2">Ваш вес (кг)</label>
+          <label className="block text-gray-700 dark:text-gray-300 mb-2">Ваш вес (кг)</label>
           <input
             type="number"
             value={weight}
             onChange={(e) => setWeight(e.target.value)}
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+              bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100
+              focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400
+              placeholder-gray-400 dark:placeholder-gray-500"
             placeholder="Например: 70"
           />
         </div>
 
         <div>
-          <label className="block text-gray-700 mb-2">Уровень активности</label>
+          <label className="block text-gray-700 dark:text-gray-300 mb-2">Уровень активности</label>
           <select
             value={activity}
             onChange={(e) => setActivity(e.target.value)}
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+              bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100
+              focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
           >
             <option value="light">Легкие тренировки (2-3 раза в неделю)</option>
             <option value="moderate">Умеренные тренировки (3-4 раза в неделю)</option>
@@ -78,11 +83,13 @@ export default function ProteinCalculator() {
         </div>
 
         <div>
-          <label className="block text-gray-700 mb-2">Ваша цель</label>
+          <label className="block text-gray-700 dark:text-gray-300 mb-2">Ваша цель</label>
           <select
             value={goal}
             onChange={(e) => setGoal(e.target.value)}
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+              bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100
+              focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
           >
             <option value="muscle">Набор мышечной массы</option>
             <option value="cut">Сушка</option>
@@ -94,17 +101,17 @@ export default function ProteinCalculator() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="mt-6 p-6 bg-blue-50 rounded-xl"
+            className="mt-6 p-6 bg-blue-50/50 dark:bg-blue-900/30 rounded-xl"
           >
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">Ваша норма протеина:</h3>
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">Ваша норма протеина:</h3>
             <div className="space-y-2">
-              <p className="text-gray-700">
+              <p className="text-gray-700 dark:text-gray-300">
                 <span className="font-medium">В день:</span> {result.daily} грамм
               </p>
-              <p className="text-gray-700">
+              <p className="text-gray-700 dark:text-gray-300">
                 <span className="font-medium">На один прием пищи:</span> {result.perMeal} грамм
               </p>
-              <p className="text-sm text-gray-600 mt-4">
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-4">
                 * Рекомендуется разделить дневную норму на 4-5 приемов пищи
               </p>
             </div>

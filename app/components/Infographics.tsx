@@ -7,9 +7,9 @@ export function CreatineATPChart() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="bg-white rounded-2xl p-6 shadow-lg"
+      className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg"
     >
-      <h3 className="text-xl font-bold mb-6 text-gray-800">Как креатин превращается в АТФ</h3>
+      <h3 className="text-xl font-bold mb-6 text-gray-800 dark:text-gray-100">Как креатин превращается в АТФ</h3>
       <div className="relative h-64">
         <svg className="w-full h-full" viewBox="0 0 400 200">
           {/* Креатин */}
@@ -18,7 +18,7 @@ export function CreatineATPChart() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            <circle cx="50" cy="100" r="30" fill="#4F46E5" opacity="0.2" />
+            <circle cx="50" cy="100" r="30" fill="#4F46E5" opacity="0.2" className="dark:opacity-30" />
             <circle cx="50" cy="100" r="25" fill="#4F46E5" />
             <text x="50" y="100" textAnchor="middle" fill="white" dy=".3em" fontSize="12">
               Креатин
@@ -43,7 +43,7 @@ export function CreatineATPChart() {
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5 }}
           >
-            <circle cx="180" cy="100" r="35" fill="#7C3AED" opacity="0.2" />
+            <circle cx="180" cy="100" r="35" fill="#7C3AED" opacity="0.2" className="dark:opacity-30" />
             <circle cx="180" cy="100" r="30" fill="#7C3AED" />
             <text x="180" y="95" textAnchor="middle" fill="white" fontSize="12">
               Креатин-
@@ -71,7 +71,7 @@ export function CreatineATPChart() {
             animate={{ opacity: 1 }}
             transition={{ delay: 2.5 }}
           >
-            <circle cx="310" cy="100" r="30" fill="#EC4899" opacity="0.2" />
+            <circle cx="310" cy="100" r="30" fill="#EC4899" opacity="0.2" className="dark:opacity-30" />
             <circle cx="310" cy="100" r="25" fill="#EC4899" />
             <text x="310" y="100" textAnchor="middle" fill="white" dy=".3em" fontSize="12">
               АТФ
@@ -84,10 +84,10 @@ export function CreatineATPChart() {
             animate={{ opacity: 1 }}
             transition={{ delay: 3 }}
           >
-            <text x="115" y="80" textAnchor="middle" fill="#4F46E5" fontSize="10">
+            <text x="115" y="80" textAnchor="middle" fill="#4F46E5" fontSize="10" className="dark:fill-blue-300">
               Фосфорилирование
             </text>
-            <text x="245" y="80" textAnchor="middle" fill="#7C3AED" fontSize="10">
+            <text x="245" y="80" textAnchor="middle" fill="#7C3AED" fontSize="10" className="dark:fill-purple-300">
               Ресинтез АТФ
             </text>
           </motion.g>
@@ -106,15 +106,15 @@ export function CreatineStrengthChart() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="bg-white rounded-2xl p-6 shadow-lg"
+      className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg"
     >
-      <h3 className="text-xl font-bold mb-6 text-gray-800">Рост силовых показателей</h3>
+      <h3 className="text-xl font-bold mb-6 text-gray-800 dark:text-gray-100">Рост силовых показателей</h3>
       <div className="relative h-64">
         <svg className="w-full h-full" viewBox="0 0 400 200">
           {/* Ось Y */}
-          <line x1="50" y1="150" x2="50" y2="30" stroke="#94A3B8" strokeWidth="2" />
+          <line x1="50" y1="150" x2="50" y2="30" stroke="#94A3B8" strokeWidth="2" className="dark:stroke-gray-600" />
           {/* Ось X */}
-          <line x1="50" y1="150" x2="350" y2="150" stroke="#94A3B8" strokeWidth="2" />
+          <line x1="50" y1="150" x2="350" y2="150" stroke="#94A3B8" strokeWidth="2" className="dark:stroke-gray-600" />
 
           {/* График */}
           <motion.path
@@ -125,6 +125,7 @@ export function CreatineStrengthChart() {
             stroke="#4F46E5"
             strokeWidth="3"
             fill="none"
+            className="dark:stroke-blue-400"
           />
 
           {/* Точки данных */}
@@ -140,6 +141,7 @@ export function CreatineStrengthChart() {
                 cy={150 - (strengthData[i] - 100) * 2}
                 r="4"
                 fill="#4F46E5"
+                className="dark:fill-blue-400"
               />
               {/* Подписи недель */}
               <text
@@ -148,6 +150,7 @@ export function CreatineStrengthChart() {
                 textAnchor="middle"
                 fill="#64748B"
                 fontSize="12"
+                className="dark:fill-gray-400"
               >
                 Неделя {w}
               </text>
@@ -158,6 +161,7 @@ export function CreatineStrengthChart() {
                 textAnchor="middle"
                 fill="#4F46E5"
                 fontSize="12"
+                className="dark:fill-blue-400"
               >
                 {strengthData[i]}%
               </text>
@@ -165,7 +169,7 @@ export function CreatineStrengthChart() {
           ))}
         </svg>
       </div>
-      <p className="text-sm text-gray-600 mt-4">
+      <p className="text-sm text-gray-600 dark:text-gray-400 mt-4">
         * На графике показан средний рост силовых показателей при регулярном приеме креатина
       </p>
     </motion.div>

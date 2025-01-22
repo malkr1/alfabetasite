@@ -1,103 +1,175 @@
 'use client'
 import React from 'react'
+import CategoryLayout from '../../components/CategoryLayout'
 import { motion } from 'framer-motion'
-import Link from 'next/link'
 
 export default function ElectrolytesPage() {
   const sections = [
     {
       title: 'Что такое электролиты?',
-      content: 'Электролиты — это минералы (магний, калий, натрий и др.), которые регулируют водный баланс, мышечные сокращения и нервную проводимость. Особенно важны при интенсивных тренировках и обильном потоотделении.',
-      icon: '💧'
+      content: 'Электролиты — это минералы в крови и других жидкостях организма, которые несут электрический заряд. Основные электролиты включают натрий, калий, кальций и магний. Они критически важны для гидратации, нервной и мышечной функции.',
+      icon: '⚡'
     },
     {
-      title: 'Дозировка',
-      content: 'Магний: 300-400 мг/день, Калий: 3500-4700 мг/день (преимущественно из пищи). Потребность возрастает при интенсивных тренировках и жаркой погоде.',
-      icon: '⚖️'
+      title: 'Когда нужны?',
+      content: 'Особенно важны при интенсивных тренировках, в жаркую погоду, при длительных кардио нагрузках. Потеря электролитов с потом должна быть компенсирована для поддержания оптимальной работоспособности.',
+      icon: '💦'
     },
     {
-      title: 'Время приема',
-      content: 'До и во время длительных тренировок, особенно в жаркую погоду. При коротких тренировках (менее часа) в прохладных условиях достаточно обычной воды.',
+      title: 'Симптомы дефицита',
+      content: 'Мышечные судороги, слабость, головокружение, обезвоживание, нарушение координации. При тяжелых нагрузках риск дефицита возрастает.',
+      icon: '⚠️'
+    },
+    {
+      title: 'Источники',
+      content: 'Спортивные напитки, электролитные порошки, минеральная вода, соленые закуски. Также содержатся в бананах (калий), молочных продуктах (кальций), орехах (магний).',
+      icon: '🥤'
+    }
+  ]
+
+  const minerals = [
+    {
+      name: 'Натрий',
+      role: 'Регулирует водный баланс и нервную функцию',
+      source: 'Соль, спортивные напитки',
+      icon: '🧂'
+    },
+    {
+      name: 'Калий',
+      role: 'Важен для мышечной функции и сердечного ритма',
+      source: 'Бананы, картофель, авокадо',
+      icon: '🍌'
+    },
+    {
+      name: 'Магний',
+      role: 'Участвует в сокращении мышц и энергообмене',
+      source: 'Орехи, семена, зелень',
+      icon: '🥜'
+    },
+    {
+      name: 'Кальций',
+      role: 'Необходим для мышечных сокращений',
+      source: 'Молочные продукты, зелень',
+      icon: '🥛'
+    }
+  ]
+
+  const recommendations = [
+    {
+      title: 'До тренировки',
+      content: 'Убедитесь в достаточном потреблении электролитов',
       icon: '⏰'
     },
     {
-      title: 'Преимущества',
-      content: 'Профилактика судорог, поддержка водно-солевого баланса, улучшение выносливости, ускорение восстановления, профилактика обезвоживания.',
-      icon: '💪'
+      title: 'Во время',
+      content: 'Пейте электролитные напитки при длительных нагрузках',
+      icon: '🏃'
+    },
+    {
+      title: 'После',
+      content: 'Восполните потерянные с потом электролиты',
+      icon: '🔄'
+    },
+    {
+      title: 'Мониторинг',
+      content: 'Следите за симптомами дефицита',
+      icon: '👀'
     }
   ]
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white to-blue-50 py-16">
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+    <CategoryLayout title="Электролиты">
+      <div className="space-y-8">
+        {sections.map((section, index) => (
+          <motion.div
+            key={section.title}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="bg-gray-900/50 rounded-xl p-6 shadow-lg border border-gray-700/50
+              hover:border-blue-500/30 transition-all duration-300"
+          >
+            <div className="flex items-start">
+              <span className="text-3xl mr-4">{section.icon}</span>
+              <div>
+                <h2 className="text-xl font-semibold mb-2 text-gray-100">
+                  {section.title}
+                </h2>
+                <p className="text-gray-300">
+                  {section.content}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        className="mt-12 bg-gray-900/50 rounded-xl p-6 shadow-lg border border-gray-700/50"
       >
-        <Link 
-          href="/"
-          className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-8 transition-colors"
-        >
-          ← Вернуться на главную
-        </Link>
-
-        <motion.h1 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-5xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600"
-        >
-          Электролиты
-        </motion.h1>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {sections.map((section, index) => (
+        <h2 className="text-2xl font-bold mb-6 text-gray-100">
+          Основные электролиты
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {minerals.map((mineral, index) => (
             <motion.div
-              key={section.title}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow"
+              key={mineral.name}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+              className="flex items-start space-x-4"
             >
-              <div className="text-4xl mb-4">{section.icon}</div>
-              <h2 className="text-2xl font-bold mb-4 text-gray-800">{section.title}</h2>
-              <p className="text-gray-600 leading-relaxed">{section.content}</p>
+              <span className="text-2xl">{mineral.icon}</span>
+              <div>
+                <h3 className="font-semibold text-gray-100 mb-1">
+                  {mineral.name}
+                </h3>
+                <p className="text-gray-300 mb-1">
+                  {mineral.role}
+                </p>
+                <p className="text-gray-400 text-sm">
+                  Источники: {mineral.source}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-12 bg-white rounded-2xl p-8 shadow-lg"
-        >
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">Научные данные и рекомендации</h2>
-          <div className="text-gray-600 leading-relaxed space-y-4">
-            <p>
-              Исследования (Nielsen et al., 2019) подтверждают критическую важность электролитов при интенсивных нагрузках. 
-              Особенно важно восполнение при тренировках длительностью более часа или в условиях высокой температуры.
-            </p>
-            <p className="font-semibold mt-4">Признаки дефицита электролитов:</p>
-            <ul className="list-disc list-inside space-y-2">
-              <li>Мышечные судороги и спазмы</li>
-              <li>Головокружение и слабость</li>
-              <li>Нарушение координации</li>
-              <li>Тошнота</li>
-              <li>Учащенное сердцебиение</li>
-            </ul>
-            <p className="font-semibold mt-4">Важные рекомендации:</p>
-            <ul className="list-disc list-inside space-y-2">
-              <li>Контролируйте потребление при почечной недостаточности</li>
-              <li>Не превышайте рекомендуемые дозировки</li>
-              <li>Используйте специальные спортивные напитки при длительных тренировках</li>
-              <li>Увеличивайте потребление в жаркую погоду</li>
-              <li>Сочетайте с достаточным потреблением воды</li>
-            </ul>
-          </div>
-        </motion.div>
       </motion.div>
-    </main>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.6 }}
+        className="mt-8 bg-gray-900/50 rounded-xl p-6 shadow-lg border border-gray-700/50"
+      >
+        <h2 className="text-2xl font-bold mb-6 text-gray-100">
+          Рекомендации по приему
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {recommendations.map((rec, index) => (
+            <motion.div
+              key={rec.title}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
+              className="flex items-start space-x-4"
+            >
+              <span className="text-2xl">{rec.icon}</span>
+              <div>
+                <h3 className="font-semibold text-gray-100 mb-1">
+                  {rec.title}
+                </h3>
+                <p className="text-gray-300">
+                  {rec.content}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    </CategoryLayout>
   )
 } 

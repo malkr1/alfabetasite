@@ -27,6 +27,45 @@ export default function PreWorkoutPage() {
     }
   ]
 
+  const ingredients = [
+    {
+      name: 'Кофеин',
+      amount: '150-300 мг',
+      effect: 'Энергия и фокус',
+      icon: '☕'
+    },
+    {
+      name: 'Креатин',
+      amount: '3-5 г',
+      effect: 'Сила и мощность',
+      icon: '🔋'
+    },
+    {
+      name: 'Бета-аланин',
+      amount: '2-5 г',
+      effect: 'Выносливость',
+      icon: '🏃'
+    },
+    {
+      name: 'L-цитруллин',
+      amount: '6-8 г',
+      effect: 'Пампинг',
+      icon: '💪'
+    },
+    {
+      name: 'Таурин',
+      amount: '1-2 г',
+      effect: 'Концентрация',
+      icon: '🎯'
+    },
+    {
+      name: 'Витамины B',
+      amount: '100% RDA',
+      effect: 'Метаболизм',
+      icon: '🧬'
+    }
+  ]
+
   return (
     <CategoryLayout title="Предтренировочный комплекс">
       <div className="space-y-8">
@@ -36,15 +75,16 @@ export default function PreWorkoutPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="bg-white/50 dark:bg-gray-700/50 rounded-xl p-6 shadow-lg"
+            className="bg-gray-900/50 rounded-xl p-6 shadow-lg border border-gray-700/50
+              hover:border-red-500/30 transition-all duration-300"
           >
             <div className="flex items-start">
               <span className="text-3xl mr-4">{section.icon}</span>
               <div>
-                <h2 className="text-xl font-semibold mb-2 text-gray-800 dark:text-gray-100">
+                <h2 className="text-xl font-semibold mb-2 text-gray-100">
                   {section.title}
                 </h2>
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-gray-300">
                   {section.content}
                 </p>
               </div>
@@ -52,6 +92,43 @@ export default function PreWorkoutPage() {
           </motion.div>
         ))}
       </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        className="mt-12 bg-gray-900/50 rounded-xl p-6 shadow-lg border border-gray-700/50"
+      >
+        <h2 className="text-2xl font-bold mb-6 text-gray-100">
+          Состав и дозировки
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {ingredients.map((ingredient, index) => (
+            <motion.div
+              key={ingredient.name}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+              className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/50"
+            >
+              <div className="flex items-center space-x-3">
+                <span className="text-2xl">{ingredient.icon}</span>
+                <div>
+                  <h3 className="font-semibold text-gray-100">
+                    {ingredient.name}
+                  </h3>
+                  <p className="text-blue-400 text-sm">
+                    {ingredient.amount}
+                  </p>
+                  <p className="text-gray-400 text-sm">
+                    {ingredient.effect}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
     </CategoryLayout>
   )
 } 

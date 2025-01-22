@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Гид по спортивному питанию',
-  description: 'Информация о спортивных добавках, их применении и эффективности',
+  description: 'Информация о спортивных добавках, дозировках и эффектах',
 }
 
 export default function RootLayout({

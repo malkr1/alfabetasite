@@ -1,5 +1,6 @@
 'use client'
 import React from 'react'
+import CategoryLayout from '../../components/CategoryLayout'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import ProteinCalculator from '@/app/components/ProteinCalculator'
@@ -29,73 +30,59 @@ export default function ProteinsPage() {
   ]
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white to-blue-50 py-16">
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+    <CategoryLayout title="Протеин">
+      <div className="space-y-8">
+        {sections.map((section, index) => (
+          <motion.div
+            key={section.title}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="bg-gray-900/50 rounded-xl p-6 shadow-lg border border-gray-700/50
+              hover:border-blue-500/30 transition-all duration-300"
+          >
+            <div className="flex items-start">
+              <span className="text-3xl mr-4">{section.icon}</span>
+              <div>
+                <h2 className="text-xl font-semibold mb-2 text-gray-100">
+                  {section.title}
+                </h2>
+                <p className="text-gray-300">
+                  {section.content}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        className="mt-12"
       >
-        <Link 
-          href="/"
-          className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-8 transition-colors"
-        >
-          ← Вернуться на главную
-        </Link>
-
-        <motion.h1 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-5xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600"
-        >
-          Протеин
-        </motion.h1>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {sections.map((section, index) => (
-            <motion.div
-              key={section.title}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow"
-            >
-              <div className="text-4xl mb-4">{section.icon}</div>
-              <h2 className="text-2xl font-bold mb-4 text-gray-800">{section.title}</h2>
-              <p className="text-gray-600 leading-relaxed">{section.content}</p>
-            </motion.div>
-          ))}
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-12"
-        >
-          <ProteinCalculator />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-12 bg-white rounded-2xl p-8 shadow-lg"
-        >
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">Выбор протеина</h2>
-          <p className="text-gray-600 leading-relaxed mb-4">
-            При выборе протеина обратите внимание на:
-          </p>
-          <ul className="list-disc list-inside text-gray-600 leading-relaxed space-y-2">
-            <li>Тип протеина (быстрый или медленный)</li>
-            <li>Содержание белка на порцию (минимум 20г)</li>
-            <li>Наличие дополнительных ингредиентов</li>
-            <li>Качество сырья и репутацию производителя</li>
-            <li>Индивидуальную переносимость компонентов</li>
-          </ul>
-        </motion.div>
+        <ProteinCalculator />
       </motion.div>
-    </main>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        className="mt-12 bg-gray-900/50 rounded-xl p-6 shadow-lg border border-gray-700/50"
+      >
+        <h2 className="text-2xl font-bold mb-4 text-gray-100">Выбор протеина</h2>
+        <p className="text-gray-300 mb-4">
+          При выборе протеина обратите внимание на:
+        </p>
+        <ul className="list-disc list-inside text-gray-300 space-y-2">
+          <li>Тип протеина (быстрый или медленный)</li>
+          <li>Содержание белка на порцию (минимум 20г)</li>
+          <li>Наличие дополнительных ингредиентов</li>
+          <li>Качество сырья и репутацию производителя</li>
+          <li>Индивидуальную переносимость компонентов</li>
+        </ul>
+      </motion.div>
+    </CategoryLayout>
   )
 } 

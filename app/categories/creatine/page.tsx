@@ -38,15 +38,16 @@ export default function CreatinePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="bg-white/50 dark:bg-gray-700/50 rounded-xl p-6 shadow-lg"
+            className="bg-gray-900/50 rounded-xl p-6 shadow-lg border border-gray-700/50
+              hover:border-purple-500/30 transition-all duration-300"
           >
             <div className="flex items-start">
               <span className="text-3xl mr-4">{section.icon}</span>
               <div>
-                <h2 className="text-xl font-semibold mb-2 text-gray-800 dark:text-gray-100">
+                <h2 className="text-xl font-semibold mb-2 text-gray-100">
                   {section.title}
                 </h2>
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-gray-300">
                   {section.content}
                 </p>
               </div>
@@ -55,7 +56,7 @@ export default function CreatinePage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
         <CreatineATPChart />
         <CreatineStrengthChart />
       </div>
@@ -64,29 +65,43 @@ export default function CreatinePage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.4 }}
-        className="bg-white rounded-2xl p-8 shadow-lg"
+        className="mt-12 bg-gray-900/50 rounded-xl p-6 shadow-lg border border-gray-700/50"
       >
-        <h2 className="text-2xl font-bold mb-4 text-gray-800">Научные исследования</h2>
+        <h2 className="text-2xl font-bold mb-4 text-gray-100">
+          Научные исследования
+        </h2>
         <div className="space-y-4">
           <div className="flex items-start gap-3">
-            <span className="text-blue-600">📊</span>
+            <span className="text-blue-400">📊</span>
             <div>
-              <h3 className="font-semibold text-gray-800">Мета-анализ 250+ исследований</h3>
-              <p className="text-gray-600">Подтверждает эффективность и безопасность креатина для увеличения силы и мышечной массы</p>
+              <h3 className="font-semibold text-gray-100">
+                Мета-анализ 250+ исследований
+              </h3>
+              <p className="text-gray-300">
+                Подтверждает эффективность и безопасность креатина для увеличения силы и мышечной массы
+              </p>
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <span className="text-blue-600">🧪</span>
+            <span className="text-blue-400">🧪</span>
             <div>
-              <h3 className="font-semibold text-gray-800">Долгосрочные исследования</h3>
-              <p className="text-gray-600">Показывают отсутствие негативных эффектов при приеме до 30 грамм в день в течение 5 лет</p>
+              <h3 className="font-semibold text-gray-100">
+                Долгосрочные исследования
+              </h3>
+              <p className="text-gray-300">
+                Показывают отсутствие негативных эффектов при приеме до 30 грамм в день в течение 5 лет
+              </p>
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <span className="text-blue-600">🎯</span>
+            <span className="text-blue-400">🎯</span>
             <div>
-              <h3 className="font-semibold text-gray-800">Клинические испытания</h3>
-              <p className="text-gray-600">Демонстрируют увеличение силовых показателей на 5-15% за 4-8 недель приема</p>
+              <h3 className="font-semibold text-gray-100">
+                Клинические испытания
+              </h3>
+              <p className="text-gray-300">
+                Демонстрируют увеличение силовых показателей на 5-15% за 4-8 недель приема
+              </p>
             </div>
           </div>
         </div>
