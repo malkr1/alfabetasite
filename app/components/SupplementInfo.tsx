@@ -1,281 +1,257 @@
 'use client'
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function SupplementInfo() {
-  const supplements = [
-    {
-      name: 'Креатин',
-      icon: '🔋',
-      dosage: {
-        amount: '3-5 г',
-        frequency: 'ежедневно',
-        note: 'Фаза загрузки необязательна'
-      },
-      timing: {
-        optimal: 'После тренировки с углеводами',
-        alternative: 'В любое время дня',
-        note: 'Важна регулярность приема'
-      },
-      contraindications: [
-        'Тяжелые заболевания почек',
-        'Индивидуальная непереносимость'
-      ],
-      benefits: [
-        'Увеличение силы и мощности',
-        'Рост мышечной массы',
-        'Улучшение восстановления'
-      ],
-      sideEffects: [
-        'Задержка воды в первые дни',
-        'Возможны спазмы при недостатке воды'
-      ],
-      safetyLevel: 'high',
-      waterIntake: 'Минимум 2-3 литра воды в день'
-    },
-    {
-      name: 'Протеин',
-      icon: '💪',
-      dosage: {
-        amount: '20-30 г',
-        frequency: '1-3 раза в день',
-        note: '1.6-2.2 г белка на кг веса тела в сутки'
-      },
-      timing: {
-        optimal: 'В течение 30 минут после тренировки',
-        alternative: 'Между приемами пищи',
-        note: 'Можно использовать как перекус'
-      },
-      contraindications: [
-        'Тяжелые заболевания почек',
-        'Непереносимость молочного белка (для сывороточного)'
-      ],
-      benefits: [
-        'Восстановление мышц',
-        'Набор мышечной массы',
-        'Сохранение мышц при похудении'
-      ],
-      sideEffects: [
-        'Возможно вздутие при непереносимости лактозы',
-        'Дискомфорт при превышении дозировки'
-      ],
-      safetyLevel: 'high',
-      waterIntake: 'Дополнительно 200-300 мл на порцию'
-    },
-    {
-      name: 'BCAA',
-      icon: '🧬',
-      dosage: {
-        amount: '5-10 г',
-        frequency: '1-3 раза в день',
-        note: 'При достаточном потреблении белка можно не принимать'
-      },
-      timing: {
-        optimal: 'До и во время тренировки',
-        alternative: 'Между приемами пищи',
-        note: 'Особенно важно при тренировках натощак'
-      },
-      contraindications: [
-        'Индивидуальная непереносимость',
-        'Заболевания печени'
-      ],
-      benefits: [
-        'Снижение мышечного распада',
-        'Уменьшение усталости',
-        'Поддержка иммунитета'
-      ],
-      sideEffects: [
-        'Возможна тошнота при приеме натощак',
-        'Редко - головная боль'
-      ],
-      safetyLevel: 'medium',
-      waterIntake: 'Минимум 200 мл на порцию'
-    },
-    {
-      name: 'Кофеин',
-      icon: '☕',
-      dosage: {
-        amount: '200-400 мг',
-        frequency: '1-2 раза в день',
-        note: 'Не более 400 мг в сутки'
-      },
-      timing: {
-        optimal: '30-60 минут до тренировки',
-        alternative: 'Утром',
-        note: 'Избегать приема вечером'
-      },
-      contraindications: [
-        'Гипертония',
-        'Аритмия',
-        'Тревожность',
-        'Бессонница'
-      ],
-      benefits: [
-        'Повышение энергии',
-        'Улучшение концентрации',
-        'Ускорение метаболизма'
-      ],
-      sideEffects: [
-        'Тахикардия',
-        'Бессонница',
-        'Тревожность',
-        'Привыкание'
-      ],
-      safetyLevel: 'medium',
-      waterIntake: 'Дополнительно 250-300 мл воды'
-    },
-    {
-      name: 'Омега-3',
-      icon: '🐟',
-      dosage: {
-        amount: '2-3 г',
-        frequency: 'ежедневно',
-        note: 'EPA + DHA должны составлять минимум 500 мг'
-      },
-      timing: {
-        optimal: 'С приемами пищи',
-        alternative: 'В любое время дня',
-        note: 'Лучше разделить на 2-3 приема'
-      },
-      contraindications: [
-        'Нарушения свертываемости крови',
-        'Прием антикоагулянтов',
-        'Аллергия на рыбу'
-      ],
-      benefits: [
-        'Противовоспалительный эффект',
-        'Поддержка суставов',
-        'Улучшение работы мозга'
-      ],
-      sideEffects: [
-        'Рыбная отрыжка',
-        'Расстройство желудка при большой дозе'
-      ],
-      safetyLevel: 'high',
-      waterIntake: 'Стандартный питьевой режим'
-    }
-  ]
+  const [expandedSections, setExpandedSections] = useState<string[]>([])
 
-  const [activeTab, setActiveTab] = useState(supplements[0].name)
+  const toggleSection = (section: string) => {
+    setExpandedSections(prev => 
+      prev.includes(section) 
+        ? prev.filter(s => s !== section)
+        : [...prev, section]
+    )
+  }
+
+  const info = {
+    dosage: [
+      {
+        supplement: 'Протеин',
+        amount: '20-30г',
+        timing: 'После тренировки, между приемами пищи',
+        icon: '💪'
+      },
+      {
+        supplement: 'Креатин',
+        amount: '5г',
+        timing: 'Ежедневно, в любое время',
+        icon: '🔋'
+      },
+      {
+        supplement: 'BCAA',
+        amount: '5-10г',
+        timing: 'До/во время тренировки',
+        icon: '🧬'
+      },
+      {
+        supplement: 'Кофеин',
+        amount: '200-400мг',
+        timing: '30-60 минут до тренировки',
+        icon: '☕'
+      }
+    ],
+    timing: [
+      {
+        period: 'До тренировки (30-60 минут)',
+        supplements: ['Кофеин', 'L-карнитин', 'Предтренировочный комплекс'],
+        icon: '⏰'
+      },
+      {
+        period: 'Во время тренировки',
+        supplements: ['BCAA', 'Электролиты'],
+        icon: '⚡'
+      },
+      {
+        period: 'После тренировки (до 30 минут)',
+        supplements: ['Протеин', 'Креатин'],
+        icon: '🔄'
+      }
+    ],
+    effects: [
+      {
+        effect: 'Рост мышечной массы',
+        supplements: ['Протеин', 'Креатин', 'BCAA'],
+        icon: '💪'
+      },
+      {
+        effect: 'Жиросжигание',
+        supplements: ['L-карнитин', 'Кофеин'],
+        icon: '🔥'
+      },
+      {
+        effect: 'Повышение энергии',
+        supplements: ['Кофеин', 'Предтренировочный комплекс'],
+        icon: '⚡'
+      }
+    ]
+  }
+
+  const sectionVariants = {
+    hidden: { opacity: 0, height: 0 },
+    visible: { 
+      opacity: 1, 
+      height: 'auto',
+      transition: { duration: 0.5, ease: 'easeInOut' }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: { duration: 0.3 }
+    }
+  }
 
   return (
-    <section className="bg-white rounded-2xl p-6 shadow-lg">
-      <h2 className="text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-        Ключевая информация
-      </h2>
-
-      {/* Табы */}
-      <div className="flex flex-wrap gap-2 mb-6">
-        {supplements.map((supp) => (
-          <button
-            key={supp.name}
-            onClick={() => setActiveTab(supp.name)}
-            className={`px-4 py-2 rounded-lg flex items-center gap-2 transition-colors ${
-              activeTab === supp.name
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            <span>{supp.icon}</span>
-            {supp.name}
-          </button>
-        ))}
-      </div>
-
-      {/* Контент */}
-      {supplements.map((supp) => (
-        <motion.div
-          key={supp.name}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ 
-            opacity: activeTab === supp.name ? 1 : 0,
-            y: activeTab === supp.name ? 0 : 20,
-            display: activeTab === supp.name ? 'block' : 'none'
-          }}
-          transition={{ duration: 0.3 }}
-          className="space-y-6"
+    <div className="space-y-8">
+      {/* Дозировки */}
+      <motion.div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 shadow-lg 
+        border border-transparent hover:border-blue-200 dark:hover:border-blue-500/30 transition-all duration-300">
+        <button
+          onClick={() => toggleSection('dosage')}
+          className="w-full text-left mb-4 flex items-center justify-between"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Дозировка и время приема */}
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                  <span className="text-blue-600">💊</span> Дозировка
-                </h3>
-                <div className="bg-blue-50 rounded-lg p-4">
-                  <p className="text-blue-800 font-medium">{supp.dosage.amount} {supp.dosage.frequency}</p>
-                  <p className="text-sm text-blue-600 mt-1">{supp.dosage.note}</p>
-                </div>
+          <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r 
+            from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
+            Дозировки
+          </h3>
+          <span className="text-xl text-gray-800 dark:text-gray-200">{expandedSections.includes('dosage') ? '▼' : '▶'}</span>
+        </button>
+        <AnimatePresence>
+          {expandedSections.includes('dosage') && (
+            <motion.div
+              variants={sectionVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+            >
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                {info.dosage.map((item, index) => (
+                  <motion.div
+                    key={item.supplement}
+                    variants={itemVariants}
+                    initial="hidden"
+                    animate="visible"
+                    transition={{ delay: index * 0.1 }}
+                    className="bg-gradient-to-br from-blue-50/50 to-purple-50/50 
+                      dark:from-blue-900/30 dark:to-purple-900/30 
+                      rounded-lg p-4 border border-blue-100/50 dark:border-blue-500/20"
+                  >
+                    <div className="text-3xl mb-2">{item.icon}</div>
+                    <h4 className="font-semibold text-gray-800 dark:text-gray-100">{item.supplement}</h4>
+                    <p className="text-blue-600 dark:text-blue-400 mt-1">{item.amount}</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">{item.timing}</p>
+                  </motion.div>
+                ))}
               </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
 
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                  <span className="text-purple-600">⏰</span> Время приема
-                </h3>
-                <div className="bg-purple-50 rounded-lg p-4">
-                  <p className="text-purple-800 font-medium">Оптимально: {supp.timing.optimal}</p>
-                  <p className="text-purple-800">Альтернативно: {supp.timing.alternative}</p>
-                  <p className="text-sm text-purple-600 mt-1">{supp.timing.note}</p>
-                </div>
+      {/* Время приема */}
+      <motion.div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 shadow-lg 
+        border border-transparent hover:border-green-200 dark:hover:border-green-500/30 transition-all duration-300">
+        <button
+          onClick={() => toggleSection('timing')}
+          className="w-full text-left mb-4 flex items-center justify-between"
+        >
+          <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r 
+            from-green-600 to-teal-600 dark:from-green-400 dark:to-teal-400">
+            Время приема
+          </h3>
+          <span className="text-xl text-gray-800 dark:text-gray-200">{expandedSections.includes('timing') ? '▼' : '▶'}</span>
+        </button>
+        <AnimatePresence>
+          {expandedSections.includes('timing') && (
+            <motion.div
+              variants={sectionVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+            >
+              <div className="space-y-4">
+                {info.timing.map((item, index) => (
+                  <motion.div
+                    key={item.period}
+                    variants={itemVariants}
+                    initial="hidden"
+                    animate="visible"
+                    transition={{ delay: index * 0.1 }}
+                    className="bg-gradient-to-br from-green-50/50 to-teal-50/50 
+                      dark:from-green-900/30 dark:to-teal-900/30 
+                      rounded-lg p-4 border border-green-100/50 dark:border-green-500/20"
+                  >
+                    <div className="flex items-start">
+                      <span className="text-2xl mr-3">{item.icon}</span>
+                      <div>
+                        <h4 className="font-semibold text-gray-800 dark:text-gray-100">{item.period}</h4>
+                        <div className="flex flex-wrap gap-2 mt-2">
+                          {item.supplements.map((supplement) => (
+                            <span
+                              key={supplement}
+                              className="inline-block px-3 py-1 bg-white/50 dark:bg-gray-700/50 
+                                rounded-full text-sm text-gray-600 dark:text-gray-300"
+                            >
+                              {supplement}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
-            </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
 
-            {/* Противопоказания и эффекты */}
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                  <span className="text-red-600">⚠️</span> Противопоказания
-                </h3>
-                <div className="bg-red-50 rounded-lg p-4">
-                  <ul className="list-disc list-inside space-y-1">
-                    {supp.contraindications.map((item, index) => (
-                      <li key={index} className="text-red-800">{item}</li>
-                    ))}
-                  </ul>
-                </div>
+      {/* Эффекты */}
+      <motion.div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 shadow-lg 
+        border border-transparent hover:border-purple-200 dark:hover:border-purple-500/30 transition-all duration-300">
+        <button
+          onClick={() => toggleSection('effects')}
+          className="w-full text-left mb-4 flex items-center justify-between"
+        >
+          <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r 
+            from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400">
+            Эффекты
+          </h3>
+          <span className="text-xl text-gray-800 dark:text-gray-200">{expandedSections.includes('effects') ? '▼' : '▶'}</span>
+        </button>
+        <AnimatePresence>
+          {expandedSections.includes('effects') && (
+            <motion.div
+              variants={sectionVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+            >
+              <div className="grid gap-6 md:grid-cols-3">
+                {info.effects.map((item, index) => (
+                  <motion.div
+                    key={item.effect}
+                    variants={itemVariants}
+                    initial="hidden"
+                    animate="visible"
+                    transition={{ delay: index * 0.1 }}
+                    className="bg-gradient-to-br from-purple-50/50 to-pink-50/50 
+                      dark:from-purple-900/30 dark:to-pink-900/30 
+                      rounded-lg p-4 border border-purple-100/50 dark:border-purple-500/20"
+                  >
+                    <div className="text-3xl mb-2">{item.icon}</div>
+                    <h4 className="font-semibold text-gray-800 dark:text-gray-100">{item.effect}</h4>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {item.supplements.map((supplement) => (
+                        <span
+                          key={supplement}
+                          className="inline-block px-3 py-1 bg-white/50 dark:bg-gray-700/50 
+                            rounded-full text-sm text-gray-600 dark:text-gray-300"
+                        >
+                          {supplement}
+                        </span>
+                      ))}
+                    </div>
+                  </motion.div>
+                ))}
               </div>
-
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                  <span className="text-green-600">✅</span> Преимущества
-                </h3>
-                <div className="bg-green-50 rounded-lg p-4">
-                  <ul className="list-disc list-inside space-y-1">
-                    {supp.benefits.map((item, index) => (
-                      <li key={index} className="text-green-800">{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Дополнительная информация */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                <span className="text-yellow-600">⚡</span> Побочные эффекты
-              </h3>
-              <div className="bg-yellow-50 rounded-lg p-4">
-                <ul className="list-disc list-inside space-y-1">
-                  {supp.sideEffects.map((item, index) => (
-                    <li key={index} className="text-yellow-800">{item}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                <span className="text-blue-600">💧</span> Потребление воды
-              </h3>
-              <div className="bg-blue-50 rounded-lg p-4">
-                <p className="text-blue-800">{supp.waterIntake}</p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      ))}
-    </section>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    </div>
   )
 } 
