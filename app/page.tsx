@@ -103,7 +103,8 @@ export default function Home() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-6xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:to-purple-400"
+          className="text-6xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r 
+            from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400"
         >
           Гид по спортивному питанию
         </motion.h1>
@@ -112,7 +113,7 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-xl text-gray-600 text-center mb-16 max-w-3xl mx-auto"
+          className="text-xl text-gray-600 dark:text-gray-300 text-center mb-16 max-w-3xl mx-auto"
         >
           Узнайте всё о спортивных добавках: состав, применение, эффективность
         </motion.p>
