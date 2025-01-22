@@ -54,7 +54,7 @@ export default function Home() {
     {
       title: 'Витамин D',
       description: 'Важный витамин для иммунитета и костей',
-      href: '/categories/vitamin-d',
+      href: '/categories/vitamind',
       gradient: 'from-indigo-900/30 to-violet-900/30',
       borderGradient: 'from-indigo-500 to-violet-500'
     },
@@ -68,7 +68,7 @@ export default function Home() {
     {
       title: 'L-карнитин',
       description: 'Аминокислота для улучшения жиросжигания',
-      href: '/categories/l-carnitine',
+      href: '/categories/lcarnitine',
       gradient: 'from-rose-900/30 to-pink-900/30',
       borderGradient: 'from-rose-500 to-pink-500'
     }
@@ -109,15 +109,17 @@ export default function Home() {
                   backdrop-blur-sm border border-transparent relative overflow-hidden
                   transition-all duration-300 hover:scale-[1.02]`}>
                   <div className={`absolute inset-0 bg-gradient-to-br ${category.borderGradient} opacity-0 
-                    group-hover:opacity-20 transition-opacity duration-300`} />
+                    group-hover:opacity-10 transition-opacity duration-300`} />
                   <div className={`absolute inset-0 border-2 border-transparent bg-gradient-to-br ${category.borderGradient} 
                     mask-border opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-                  <h2 className="text-xl font-semibold mb-2 text-gray-100">
-                    {category.title}
-                  </h2>
-                  <p className="text-gray-300">
-                    {category.description}
-                  </p>
+                  <div className="relative z-10">
+                    <h2 className="text-xl font-semibold mb-2 text-gray-100">
+                      {category.title}
+                    </h2>
+                    <p className="text-gray-300">
+                      {category.description}
+                    </p>
+                  </div>
                 </div>
               </Link>
             </motion.div>
