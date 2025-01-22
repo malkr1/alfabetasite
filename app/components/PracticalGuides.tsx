@@ -1,9 +1,18 @@
 'use client'
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function PracticalGuides() {
   const [expandedMythIndex, setExpandedMythIndex] = useState<number | null>(null)
+  const [expandedSections, setExpandedSections] = useState<string[]>([])
+
+  const toggleSection = (section: string) => {
+    setExpandedSections(prev => 
+      prev.includes(section) 
+        ? prev.filter(s => s !== section)
+        : [...prev, section]
+    )
+  }
 
   const guides = {
     combinations: [
@@ -163,126 +172,206 @@ export default function PracticalGuides() {
       className="space-y-12"
     >
       <section>
-        <h2 className="text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-          Как сочетать добавки
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {guides.combinations.map((combo) => (
-            <motion.div
-              key={combo.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-2xl p-6 shadow-lg"
-            >
-              <h3 className="text-xl font-bold mb-4 text-gray-800">{combo.title}</h3>
-              <div className="space-y-4">
-                {combo.items.map((item, index) => (
-                  <div key={index} className="border-b border-gray-100 pb-4 last:border-0">
-                    <p className="font-semibold text-blue-600 mb-1">{item.combo}</p>
-                    <p className="text-sm text-purple-600 mb-2">⏰ {item.timing}</p>
-                    <p className="text-gray-600 text-sm">{item.note}</p>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      <section>
-        <h2 className="text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-          Несовместимые комбинации
-        </h2>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-2xl p-6 shadow-lg"
+        <button
+          onClick={() => toggleSection('combinations')}
+          className="w-full text-left mb-6"
         >
-          <div className="space-y-6">
-            {guides.incompatible.map((item, index) => (
-              <div key={index} className="border-b border-gray-100 pb-6 last:border-0">
-                <div className="flex items-start mb-2">
-                  <span className="text-red-500 mr-2">⚠️</span>
-                  <h3 className="font-bold text-gray-800">{item.combination}</h3>
-                </div>
-                <p className="text-red-600 mb-2 pl-6 text-sm">{item.risk}</p>
-                <p className="text-green-600 pl-6 text-sm">✓ Решение: {item.solution}</p>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
-
-      <section>
-        <h2 className="text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-          Мифы и факты
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {guides.myths.map((item, index) => (
+          <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 flex items-center">
+            Как сочетать добавки
+            <span className="ml-3 text-blue-600">
+              {expandedSections.includes('combinations') ? '▼' : '▶'}
+            </span>
+          </h2>
+        </button>
+        <AnimatePresence>
+          {expandedSections.includes('combinations') && (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-2xl p-6 shadow-lg"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              style={{ overflow: 'hidden' }}
             >
-              <div className="flex items-start gap-3">
-                <span className="text-2xl">{item.icon}</span>
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold mb-2 text-red-500">Миф: {item.myth}</h3>
-                  <p className="text-gray-600 mb-3">
-                    <span className="font-bold text-green-500">Факт:</span> {item.fact}
-                  </p>
-                  <div 
-                    className={`overflow-hidden transition-all duration-300 ${
-                      expandedMythIndex === index ? 'max-h-48' : 'max-h-0'
-                    }`}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {guides.combinations.map((combo) => (
+                  <motion.div
+                    key={combo.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-white rounded-2xl p-6 shadow-lg"
                   >
-                    <p className="text-sm text-gray-600 mb-2">{item.details}</p>
-                    <p className="text-xs text-blue-600">Источник: {item.source}</p>
-                  </div>
-                  <button
-                    onClick={() => setExpandedMythIndex(expandedMythIndex === index ? null : index)}
-                    className="text-sm text-purple-600 hover:text-purple-800 transition-colors mt-2"
-                  >
-                    {expandedMythIndex === index ? 'Скрыть' : 'Подробнее'}
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      <section>
-        <h2 className="text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-          Категории безопасности
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {Object.values(safetyCategories).map((category) => (
-            <motion.div
-              key={category.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className={`rounded-2xl p-6 shadow-lg ${category.color} border`}
-            >
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-2xl">{category.icon}</span>
-                <h3 className={`text-xl font-bold ${category.textColor}`}>{category.title}</h3>
-              </div>
-              <p className={`text-sm mb-4 ${category.textColor}`}>{category.description}</p>
-              <div className="grid grid-cols-2 gap-2">
-                {category.supplements.map((supplement) => (
-                  <div 
-                    key={supplement}
-                    className={`p-2 rounded-lg bg-white/50 ${category.textColor} text-sm`}
-                  >
-                    {supplement}
-                  </div>
+                    <h3 className="text-xl font-bold mb-4 text-gray-800">{combo.title}</h3>
+                    <div className="space-y-4">
+                      {combo.items.map((item, index) => (
+                        <div key={index} className="border-b border-gray-100 pb-4 last:border-0">
+                          <p className="font-semibold text-blue-600 mb-1">{item.combo}</p>
+                          <p className="text-sm text-purple-600 mb-2">⏰ {item.timing}</p>
+                          <p className="text-gray-600 text-sm">{item.note}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>
-          ))}
-        </div>
+          )}
+        </AnimatePresence>
+      </section>
+
+      <section>
+        <button
+          onClick={() => toggleSection('incompatible')}
+          className="w-full text-left mb-6"
+        >
+          <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 flex items-center">
+            Несовместимые комбинации
+            <span className="ml-3 text-blue-600">
+              {expandedSections.includes('incompatible') ? '▼' : '▶'}
+            </span>
+          </h2>
+        </button>
+        <AnimatePresence>
+          {expandedSections.includes('incompatible') && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              style={{ overflow: 'hidden' }}
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-white rounded-2xl p-6 shadow-lg"
+              >
+                <div className="space-y-6">
+                  {guides.incompatible.map((item, index) => (
+                    <div key={index} className="border-b border-gray-100 pb-6 last:border-0">
+                      <div className="flex items-start mb-2">
+                        <span className="text-red-500 mr-2">⚠️</span>
+                        <h3 className="font-bold text-gray-800">{item.combination}</h3>
+                      </div>
+                      <p className="text-red-600 mb-2 pl-6 text-sm">{item.risk}</p>
+                      <p className="text-green-600 pl-6 text-sm">✓ Решение: {item.solution}</p>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </section>
+
+      <section>
+        <button
+          onClick={() => toggleSection('myths')}
+          className="w-full text-left mb-6"
+        >
+          <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 flex items-center">
+            Мифы и факты
+            <span className="ml-3 text-blue-600">
+              {expandedSections.includes('myths') ? '▼' : '▶'}
+            </span>
+          </h2>
+        </button>
+        <AnimatePresence>
+          {expandedSections.includes('myths') && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              style={{ overflow: 'hidden' }}
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {guides.myths.map((item, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-white rounded-2xl p-6 shadow-lg"
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="text-2xl">{item.icon}</span>
+                      <div className="flex-1">
+                        <h3 className="text-xl font-bold mb-2 text-red-500">Миф: {item.myth}</h3>
+                        <p className="text-gray-600 mb-3">
+                          <span className="font-bold text-green-500">Факт:</span> {item.fact}
+                        </p>
+                        <div 
+                          className={`overflow-hidden transition-all duration-300 ${
+                            expandedMythIndex === index ? 'max-h-48' : 'max-h-0'
+                          }`}
+                        >
+                          <p className="text-sm text-gray-600 mb-2">{item.details}</p>
+                          <p className="text-xs text-blue-600">Источник: {item.source}</p>
+                        </div>
+                        <button
+                          onClick={() => setExpandedMythIndex(expandedMythIndex === index ? null : index)}
+                          className="text-sm text-purple-600 hover:text-purple-800 transition-colors mt-2"
+                        >
+                          {expandedMythIndex === index ? 'Скрыть' : 'Подробнее'}
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </section>
+
+      <section>
+        <button
+          onClick={() => toggleSection('safety')}
+          className="w-full text-left mb-6"
+        >
+          <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 flex items-center">
+            Категории безопасности
+            <span className="ml-3 text-blue-600">
+              {expandedSections.includes('safety') ? '▼' : '▶'}
+            </span>
+          </h2>
+        </button>
+        <AnimatePresence>
+          {expandedSections.includes('safety') && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              style={{ overflow: 'hidden' }}
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {Object.values(safetyCategories).map((category) => (
+                  <motion.div
+                    key={category.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={`rounded-2xl p-6 shadow-lg ${category.color} border`}
+                  >
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="text-2xl">{category.icon}</span>
+                      <h3 className={`text-xl font-bold ${category.textColor}`}>{category.title}</h3>
+                    </div>
+                    <p className={`text-sm mb-4 ${category.textColor}`}>{category.description}</p>
+                    <div className="grid grid-cols-2 gap-2">
+                      {category.supplements.map((supplement) => (
+                        <div 
+                          key={supplement}
+                          className={`p-2 rounded-lg bg-white/50 ${category.textColor} text-sm`}
+                        >
+                          {supplement}
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </section>
     </motion.div>
   )
