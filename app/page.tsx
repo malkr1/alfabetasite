@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import PracticalGuides from './components/PracticalGuides'
 import SupplementInfo from './components/SupplementInfo'
 import SupplementQuiz from './components/SupplementQuiz'
+import SupplementStack from './components/SupplementStack'
 
 export default function Home() {
   const [expandedKey, setExpandedKey] = useState(false)
@@ -208,6 +209,15 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.8 }}
+            className="mt-8"
+          >
+            <SupplementStack />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 1.0 }}
             className="mt-8"
           >
             <SupplementQuiz />
