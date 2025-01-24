@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import PracticalGuides from './components/PracticalGuides'
 import SupplementInfo from './components/SupplementInfo'
+import SupplementQuiz from './components/SupplementQuiz'
 
 export default function Home() {
   const [expandedKey, setExpandedKey] = useState(false)
@@ -202,6 +203,15 @@ export default function Home() {
               </motion.div>
             )}
           </AnimatePresence>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
+            className="mt-8"
+          >
+            <SupplementQuiz />
+          </motion.div>
         </motion.div>
       </div>
     </main>
