@@ -196,6 +196,112 @@ export default function PracticalGuides() {
         ],
         icon: '📝'
       }
+    ],
+    individual: [
+      {
+        title: 'Начинающим',
+        items: [
+          'Начинать с базовых добавок (протеин, креатин)',
+          'Тестировать по одной добавке за раз',
+          'Начинать с минимальных дозировок',
+          'Вести дневник реакций организма'
+        ],
+        icon: '🌱'
+      },
+      {
+        title: 'Опытным',
+        items: [
+          'Комплексный подход к добавкам',
+          'Циклирование предтренировочных',
+          'Периодизация приема добавок',
+          'Отслеживание долгосрочных эффектов'
+        ],
+        icon: '��'
+      },
+      {
+        title: 'Женщинам',
+        items: [
+          'Повышенное внимание к железу и кальцию',
+          'Корректировка дозировок с учетом массы тела',
+          'Особенности приема во время КД',
+          'Безопасные жиросжигатели'
+        ],
+        icon: '👩'
+      },
+      {
+        title: '40+ лет',
+        items: [
+          'Акцент на суставные добавки',
+          'Увеличенные дозы витамина D',
+          'Коэнзим Q10 для энергии',
+          'Контроль артериального давления'
+        ],
+        icon: '⏳'
+      }
+    ],
+    sideEffects: [
+      {
+        effect: 'Проблемы с желудком',
+        solution: 'Принимать с едой, разделить дозировку, использовать ферменты',
+        icon: '🤢'
+      },
+      {
+        effect: 'Нарушения сна',
+        solution: 'Не принимать стимуляторы после 16:00, использовать магний вечером',
+        icon: '��'
+      },
+      {
+        effect: 'Обезвоживание',
+        solution: 'Увеличить потребление воды, добавить электролиты',
+        icon: '💧'
+      },
+      {
+        effect: 'Повышенное давление',
+        solution: 'Снизить дозировки стимуляторов, проконсультироваться с врачом',
+        icon: '❤️'
+      }
+    ],
+    goals: [
+      {
+        title: 'Набор массы',
+        items: [
+          'Протеин 1.6-2.2г/кг массы тела',
+          'Креатин 5г ежедневно',
+          'Гейнер для дополнительных калорий',
+          'BCAA 5-10г во время тренировки'
+        ],
+        icon: '💪'
+      },
+      {
+        title: 'Похудение',
+        items: [
+          'L-карнитин до кардио',
+          'Протеин для сохранения мышц',
+          'CLA с основными приемами пищи',
+          'Зеленый чай для метаболизма'
+        ],
+        icon: '🔥'
+      },
+      {
+        title: 'Выносливость',
+        items: [
+          'Бета-аланин 3-5г/день',
+          'Электролиты во время нагрузок',
+          'Цитруллин малат до тренировки',
+          'BCAA для длительных тренировок'
+        ],
+        icon: '🏃'
+      },
+      {
+        title: 'После травм',
+        items: [
+          'Коллаген + Витамин C',
+          'Омега-3 в повышенной дозе',
+          'Глюкозамин + Хондроитин',
+          'Куркумин для снижения воспаления'
+        ],
+        icon: '🏥'
+      }
     ]
   }
 
@@ -462,6 +568,159 @@ export default function PracticalGuides() {
                         <li key={i} className="text-gray-300 flex items-start">
                           <span className="mr-2">•</span>
                           {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+
+      {/* Индивидуальные особенности */}
+      <motion.div className="bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 shadow-lg 
+        border border-transparent hover:border-indigo-500/30 transition-all duration-300">
+        <button
+          onClick={() => toggleSection('individual')}
+          className="w-full text-left mb-4 flex items-center justify-between"
+        >
+          <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r 
+            from-indigo-400 to-blue-400">
+            Индивидуальные особенности
+          </h3>
+          <span className="text-gray-200">
+            {expandedSections.includes('individual') ? '▼' : '▶'}
+          </span>
+        </button>
+        <AnimatePresence>
+          {expandedSections.includes('individual') && (
+            <motion.div
+              variants={sectionVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+            >
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                {guides.individual.map((item, index) => (
+                  <motion.div
+                    key={item.title}
+                    variants={itemVariants}
+                    initial="hidden"
+                    animate="visible"
+                    transition={{ delay: index * 0.1 }}
+                    className="bg-gradient-to-br from-indigo-900/30 to-blue-900/30 
+                      rounded-lg p-4 border border-indigo-500/20"
+                  >
+                    <div className="text-3xl mb-2">{item.icon}</div>
+                    <h4 className="font-semibold mb-2 text-gray-100">{item.title}</h4>
+                    <ul className="space-y-2">
+                      {item.items.map((tip, i) => (
+                        <li key={i} className="text-gray-300 flex items-start">
+                          <span className="mr-2">•</span>
+                          {tip}
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+
+      {/* Побочные эффекты */}
+      <motion.div className="bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 shadow-lg 
+        border border-transparent hover:border-rose-500/30 transition-all duration-300">
+        <button
+          onClick={() => toggleSection('sideEffects')}
+          className="w-full text-left mb-4 flex items-center justify-between"
+        >
+          <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r 
+            from-rose-400 to-pink-400">
+            Побочные эффекты
+          </h3>
+          <span className="text-gray-200">
+            {expandedSections.includes('sideEffects') ? '▼' : '▶'}
+          </span>
+        </button>
+        <AnimatePresence>
+          {expandedSections.includes('sideEffects') && (
+            <motion.div
+              variants={sectionVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+            >
+              <div className="grid gap-6 md:grid-cols-2">
+                {guides.sideEffects.map((item, index) => (
+                  <motion.div
+                    key={item.effect}
+                    variants={itemVariants}
+                    initial="hidden"
+                    animate="visible"
+                    transition={{ delay: index * 0.1 }}
+                    className="bg-gradient-to-br from-rose-900/30 to-pink-900/30 
+                      rounded-lg p-4 border border-rose-500/20"
+                  >
+                    <div className="flex items-start">
+                      <span className="text-2xl mr-3">{item.icon}</span>
+                      <div>
+                        <h4 className="font-semibold text-gray-100">{item.effect}</h4>
+                        <p className="text-gray-300 mt-1">{item.solution}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+
+      {/* Цели приема */}
+      <motion.div className="bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 shadow-lg 
+        border border-transparent hover:border-emerald-500/30 transition-all duration-300">
+        <button
+          onClick={() => toggleSection('goals')}
+          className="w-full text-left mb-4 flex items-center justify-between"
+        >
+          <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r 
+            from-emerald-400 to-teal-400">
+            Цели приема
+          </h3>
+          <span className="text-gray-200">
+            {expandedSections.includes('goals') ? '▼' : '▶'}
+          </span>
+        </button>
+        <AnimatePresence>
+          {expandedSections.includes('goals') && (
+            <motion.div
+              variants={sectionVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+            >
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                {guides.goals.map((item, index) => (
+                  <motion.div
+                    key={item.title}
+                    variants={itemVariants}
+                    initial="hidden"
+                    animate="visible"
+                    transition={{ delay: index * 0.1 }}
+                    className="bg-gradient-to-br from-emerald-900/30 to-teal-900/30 
+                      rounded-lg p-4 border border-emerald-500/20"
+                  >
+                    <div className="text-3xl mb-2">{item.icon}</div>
+                    <h4 className="font-semibold mb-2 text-gray-100">{item.title}</h4>
+                    <ul className="space-y-2">
+                      {item.items.map((goal, i) => (
+                        <li key={i} className="text-gray-300 flex items-start">
+                          <span className="mr-2">•</span>
+                          {goal}
                         </li>
                       ))}
                     </ul>
