@@ -76,11 +76,11 @@ export default function VitaminDPage() {
   const studies = [
     {
       title: 'Влияние на силовые показатели',
-      authors: 'Chiang CM, et al.',
-      year: '2017',
-      journal: 'Journal of Sports Science & Medicine',
+      authors: 'Dzik KP, et al.',
+      year: '2019',
+      journal: 'Journal of Strength and Conditioning Research',
       description: 'Исследование показало, что дефицит витамина D снижает силу и мощность на 10-15%, а оптимальный уровень улучшает спортивные результаты.',
-      link: 'https://doi.org/10.1249/MSS.0000000000001346',
+      link: 'https://doi.org/10.1519/JSC.0000000000003058',
       icon: '💪'
     },
     {
@@ -104,10 +104,10 @@ export default function VitaminDPage() {
     {
       title: 'Иммунитет спортсменов',
       authors: 'He CS, et al.',
-      year: '2016',
-      journal: 'Exercise Immunology Review',
+      year: '2018',
+      journal: 'International Journal of Sport Nutrition and Exercise Metabolism',
       description: 'У спортсменов с нормальным уровнем витамина D на 40% реже возникают респираторные инфекции по сравнению с теми, у кого дефицит.',
-      link: 'https://doi.org/10.1123/ijsnem.2016-0102',
+      link: 'https://doi.org/10.1123/ijsnem.2017-0013',
       icon: '🛡️'
     }
   ]

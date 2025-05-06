@@ -99,11 +99,11 @@ export default function BcaaPage() {
     },
     {
       title: 'Оптимальное соотношение',
-      authors: 'Wolfe RR, et al.',
-      year: '2017',
-      journal: 'Journal of the International Society of Sports Nutrition',
+      authors: 'Stokes T, et al.',
+      year: '2018',
+      journal: 'Nutrients',
       description: 'Анализ показал, что оптимальное соотношение лейцин:изолейцин:валин = 2:1:1 для максимальной стимуляции синтеза белка.',
-      link: 'https://doi.org/10.1186/s12970-017-0184-9',
+      link: 'https://doi.org/10.3390/nu10020180',
       icon: '⚖️'
     },
     {

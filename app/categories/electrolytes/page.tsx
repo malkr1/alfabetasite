@@ -86,10 +86,10 @@ export default function ElectrolytesPage() {
     {
       title: 'Потери при тренировках',
       authors: 'Shirreffs SM, et al.',
-      year: '2020',
-      journal: 'Journal of Sports Sciences',
+      year: '2019',
+      journal: 'Journal of the International Society of Sports Nutrition',
       description: 'Исследование выявило, что потери натрия с потом составляют 0.5-2г/час при интенсивных тренировках, особенно в жарких условиях.',
-      link: 'https://doi.org/10.1080/02640414.2020.1754716',
+      link: 'https://doi.org/10.1186/s12970-019-0290-y',
       icon: '💦'
     },
     {
